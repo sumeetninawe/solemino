@@ -1,0 +1,19 @@
+{
+  "name": "solemino",
+  "version": "1.0.0",
+  "description": "CLI Tool for ServiceNow",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sumeetninawe/solemino.git"
+  },
+  "author": "Sumeet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sumeetninawe/solemino/issues"
+  },
+  "homepage": "https://github.com/sumeetninawe/solemino#readme"
+}
