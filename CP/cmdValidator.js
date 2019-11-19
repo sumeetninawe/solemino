@@ -22,6 +22,7 @@ cmdValidator.validate = (cmd, cb) => {
     let validityObject = {};
     validityObject.valid = false;
     validityObject.errorMessages = [];
+    validityObject.messages = [];
 
     //break the inputs and divide it into parts
     cmdValidator.makeParts(cmd);
@@ -35,6 +36,7 @@ cmdValidator.validate = (cmd, cb) => {
         //Execution callback
         cb(validityObject);
     }
+    cmdValidator.flush();
 }
 
 cmdValidator.makeParts = (cmd) => {
@@ -64,6 +66,13 @@ cmdValidator.makeParts = (cmd) => {
             partCount++;
         }
     }
+}
+
+cmdValidator.flush = () => {
+    cmdValidator.parts = {};
+    cmdValidator.parts.key = '';
+    cmdValidator.parts.verb = '';
+    cmdValidator.parts.options = '';
 }
 
 module.exports = cmdValidator;

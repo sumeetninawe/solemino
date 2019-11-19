@@ -31,16 +31,38 @@ options.validate = (cmdParts, validityObject, cb) => {
 };
 
 options.forRead = (cmdParts, validityObject, cb) => {
-    var options = cmdParts.options;
-    var part = '';
+    var options = cmdParts.options.split(' ');
+    let cmdStructure = {};
+    cmdStructure.verb = cmdParts.verb;
+    cmdStructure.tableName = '';
+    cmdStructure.recordId = '';
+    /*var part = '';
     var partCount = 0;
     var optionsParts = {};
     optionsParts.m = {};
     optionsParts.m.table_name = undefined;
     optionsParts.o = {};
-    optionsParts.o.field_value = undefined;
+    optionsParts.o.field_value = undefined;*/
+    console.log('options.js 1: ' + options.length);
+    console.log('options.js 2: ' + options);
 
-    for(var x in options){
+    if((options.length - 1) != 2){
+        validityObject.valid = false;
+        validityObject.errorMessages.push('Invalid options supplied.');
+        cb(validityObject);
+    }else {
+        cmdStructure.operation = cmdParts.verb;
+        cmdStructure.tableName = options[0];
+        cmdStructure.recordId = options[1];
+        validityObject.valid = true;
+        cb(validityObject, cmdStructure);
+    }
+
+
+
+
+
+    /*for(var x in options){
         if(options[x] != ' '){
             if(options[x] == '\n'){
                 optionsParts.o.field_value = part;
@@ -67,7 +89,7 @@ options.forRead = (cmdParts, validityObject, cb) => {
             }
             partCount++;
         }
-    }
+    }*/
 
 
 }

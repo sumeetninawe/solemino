@@ -9,22 +9,24 @@ const DP = require('./../DP/main');
 const CP = {};
 
 CP.main = (cmd, context, filename, callback) => {
-    console.log('reached CP.main function! ' + cmd.toString().substring(0, 3));
     //Validate the command structure
     //if valid - trigger processing
     //if invalid - trigger error output message
 
     cmdValidator.validate(cmd, (validityObject, cmdStructure) => {
         //Execution callback
+        console.log('main.js 1: ' + validityObject.valid);
         if(validityObject.valid == true){
             if(cmdStructure == undefined){
                 validityObject.valid = false;
                 validityObject.errorMessages.push('Command structure not found.');
                 DP.print(validityObject);
             }
+            validityObject.messages.push('Valid command. Executing.');
             cmdExecutor.execute(cmdStructure);
-        }else
+        }else {
             DP.print(validityObject);
+        }            
     });
     
     /*if(cmd.toString().substring(0, 3) == 'now'){

@@ -10,8 +10,6 @@ const verbs = {};
 verbs.validVerbs = ['create', 'delete', 'read', 'update'];
 
 verbs.validate = (cmdParts, validityObject, cb) => {
-    console.log('inside verbs.js');
-    console.log(verbs.validVerbs.indexOf(cmdParts.verb));
     if(verbs.validVerbs.indexOf(cmdParts.verb) > -1){
         //validate options for this verb
         options.validate(cmdParts, validityObject, cb);

@@ -1,21 +1,48 @@
 /**
  * cmdExecutor: Class to encapsulate functions responsible for building and triggering appropriate API calls.
  * 
+ * Parameters Expected:
+ * Read: operation, tableName, recordId
+ * 
  */
 
 const cmdExecutor = {};
 
 cmdExecutor.execute = (cmd) => {
     console.log('Inside command Executor');
-    console.log(cmd.cmdParts.key);
-    console.log(cmd.cmdParts.verb);
-    console.log(cmd.cmdParts.options);
-    for(var x in cmd.optionsParts.m){
-        console.log(x + ' ' + cmd.optionsParts.m[x]);
+    console.log(cmd.tableName);
+    console.log(cmd.recordId);
+    console.log(cmd.operation);
+
+    switch(cmd.operation){
+        case 'read':
+        cmdExecutor.read(cmd);
+        break;
+        case 'create':
+        cmdExecutor.create(cmd);
+        break;
+        case 'update':
+        cmdExecutor.update(cmd);
+        break;
+        case 'delete':
+        cmdExecutor.delete(cmd);
+        break;
     }
-    for(var y in cmd.optionsParts.m){
-        console.log(y + ' ' + cmd.optionsParts.m[y]);
-    }
+}
+
+cmdExecutor.read = (cmd) => {
+
+}
+
+cmdExecutor.create = (cmd) => {
+
+}
+
+cmdExecutor.update = (cmd) => {
+
+}
+
+cmdExecutor.delete = (cmd) => {
 
 }
 
