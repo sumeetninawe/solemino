@@ -15,7 +15,6 @@ CP.main = (cmd, context, filename, callback) => {
 
     cmdValidator.validate(cmd, (validityObject, cmdStructure) => {
         //Execution callback
-        console.log('main.js 1: ' + validityObject.valid);
         if(validityObject.valid == true){
             if(cmdStructure == undefined){
                 validityObject.valid = false;
@@ -28,6 +27,7 @@ CP.main = (cmd, context, filename, callback) => {
             DP.print(validityObject);
         }            
     });
+    context.re();
     
     /*if(cmd.toString().substring(0, 3) == 'now'){
         console.log('triggering execution');

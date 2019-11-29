@@ -9,10 +9,6 @@
 const cmdExecutor = {};
 
 cmdExecutor.execute = (cmd) => {
-    console.log('Inside command Executor');
-    console.log(cmd.tableName);
-    console.log(cmd.recordId);
-    console.log(cmd.operation);
 
     switch(cmd.operation){
         case 'read':
@@ -31,7 +27,7 @@ cmdExecutor.execute = (cmd) => {
 }
 
 cmdExecutor.read = (cmd) => {
-
+    
 }
 
 cmdExecutor.create = (cmd) => {

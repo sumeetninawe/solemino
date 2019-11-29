@@ -1,4 +1,5 @@
 const repl = require('repl');
 const CP = require('./CP/main');
 
-repl.start({prompt: 'nowcli> ', eval: CP.main});
+const replServer = repl.start({prompt: 'nowcli> ', eval: CP.main});
+replServer.context.re = replServer.displayPrompt;
