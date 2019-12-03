@@ -6,7 +6,7 @@
  * 
  */
 
-const cmdExecutor = {};
+const cmdExecutor   = {};
 
 cmdExecutor.execute = (cmd) => {
 

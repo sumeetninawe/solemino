@@ -33,8 +33,8 @@ CP.main = (cmd, context, filename, callback) => {
             });
         }else{
             DP.print(sessionValidityObject);
-        }
-        
+            sessionValidator.login(callback);
+        }        
     });    
     callback();
     

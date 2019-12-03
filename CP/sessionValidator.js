@@ -23,7 +23,7 @@ SV.getInstanceObject = (cb) => {
     validityObject.messages = [];
     if(instanceInfo.urlPrefix == '' || instanceInfo.urlPrefix == undefined){
         validityObject.valid = false;
-        validityObject.errorMessages.push('Please login to the instance first.');
+        validityObject.errorMessages.push('Please login to the instance.');
     }else{
         validityObject.valid = true;
         validityObject.messages = ''
