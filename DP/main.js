@@ -23,4 +23,10 @@ main.printMessage = (m) => {
     }
 }
 
+main.inputValues = (qA) => {
+    for(var x in qA){
+        console.log('');
+    }
+}
+
 module.exports = main;

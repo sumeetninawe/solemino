@@ -5,6 +5,7 @@
  */
 const cmdValidator = require('./cmdValidator');
 const cmdExecutor = require('./cmdExecutor');
+const sessionValidator = require('./sessionValidator');
 const DP = require('./../DP/main');
 const CP = {};
 
@@ -13,21 +14,29 @@ CP.main = (cmd, context, filename, callback) => {
     //if valid - trigger processing
     //if invalid - trigger error output message
 
-    cmdValidator.validate(cmd, (validityObject, cmdStructure) => {
-        //Execution callback
-        if(validityObject.valid == true){
-            if(cmdStructure == undefined){
-                validityObject.valid = false;
-                validityObject.errorMessages.push('Command structure not found.');
-                DP.print(validityObject);
-            }
-            validityObject.messages.push('Valid command. Executing.');
-            cmdExecutor.execute(cmdStructure);
-        }else {
-            DP.print(validityObject);
-        }            
-    });
-    context.re();
+    sessionValidator.getInstanceObject((sessionValidityObject) => {
+        if(sessionValidityObject.valid == true){
+            cmdValidator.validate(cmd, (validityObject, cmdStructure) => {
+                //Execution callback
+                if(validityObject.valid == true){
+                    if(cmdStructure == undefined){
+                        validityObject.valid = false;
+                        validityObject.errorMessages.push('Command structure not found.');
+                        DP.print(validityObject);
+                    }
+                    validityObject.messages.push('Valid command. Executing.');
+                    cmdExecutor.execute(cmdStructure);
+                }else {
+                    DP.print(validityObject);
+                    sessionValidator.login(callback);
+                }            
+            });
+        }else{
+            DP.print(sessionValidityObject);
+        }
+        
+    });    
+    callback();
     
     /*if(cmd.toString().substring(0, 3) == 'now'){
         console.log('triggering execution');
