@@ -6,15 +6,21 @@
 const cmdValidator = require('./cmdValidator');
 const cmdExecutor = require('./cmdExecutor');
 const sessionValidator = require('./sessionValidator');
+const readline = require('readline');
 const DP = require('./../DP/main');
 const CP = {};
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    terminal: false
+});
 
 CP.main = (cmd, context, filename, callback) => {
     //Validate the command structure
     //if valid - trigger processing
     //if invalid - trigger error output message
-
-    sessionValidator.getInstanceObject((sessionValidityObject) => {
+    sessionValidator.getInstanceObject((sessionValidityObject, instanceInfo) => {
         if(sessionValidityObject.valid == true){
             cmdValidator.validate(cmd, (validityObject, cmdStructure) => {
                 //Execution callback
@@ -29,14 +35,23 @@ CP.main = (cmd, context, filename, callback) => {
                 }else {
                     DP.print(validityObject);
                     sessionValidator.login(callback);
-                }            
+                }
             });
+            callback();
         }else{
             DP.print(sessionValidityObject);
-            sessionValidator.login(callback);
+            let questions = {};
+            questions.urlPrefix = 'URL Prefix: ';
+            questions.username = 'User Name: ';
+            questions.password = 'Password: ';
+            sessionValidator.login(questions, context, callback);
+            /*rl.question('URL Prefix: ', (answer) => {
+                console.log('ok so you are ' + answer);
+                callback();
+            });*/
         }        
     });    
-    callback();
+    
     
     /*if(cmd.toString().substring(0, 3) == 'now'){
         console.log('triggering execution');

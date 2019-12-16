@@ -3,8 +3,9 @@
  */
 
 const main = {};
-const readline      = require('readline');
-const rl            = readline.createInterface({
+const repl = require('repl');
+const readline = require('readline');
+const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     terminal: false
@@ -29,8 +30,8 @@ main.printMessage = (m) => {
     }
 }
 
-main.inputValues = (qA) => {
-    qA = [{
+main.inputValues = (questions, instanceInfo, context, cb) => {
+    questions = [{
         "question": "Instance Name: ",
         "answer": ""
     }, {
@@ -40,14 +41,18 @@ main.inputValues = (qA) => {
         "question": "Password: ",
         "answer": ""
     }];
+    let i = 0;
+    let iteratorFunction = (q) => {
+
+    }
     
-    /*qA.forEach((item, index) => {
-        console.log(item.question);*/
-        rl.question("How are you?", (answer) => {
-            console.log("So you are " + answer);
-            rl.close();
-        });
-    //});   
+    rl.question(questions[i].question, (answer) => {
+        console.log(answer);
+        i++;
+        if(questions[i] != undefined){
+            rl.question(questions[i], );
+        }
+    });
 }
 
 module.exports = main;

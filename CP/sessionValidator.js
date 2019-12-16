@@ -28,16 +28,15 @@ SV.getInstanceObject = (cb) => {
         validityObject.valid = true;
         validityObject.messages = ''
     }
-    cb(validityObject);
+    cb(validityObject, instanceInfo);
 }
 
-SV.login = (cb) => {
+SV.login = (questions, context, cb) => {
     let validityObject = {};
     validityObject.valid = false;
     validityObject.errorMessages = [];
     validityObject.messages = [];
-
-    DP.inputValues(instanceInfo, cb);
+    DP.inputValues(questions, instanceInfo, context, cb);
 }
 
 module.exports = SV;
