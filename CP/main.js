@@ -20,6 +20,7 @@ CP.main = (cmd, context, filename, callback) => {
     //Validate the command structure
     //if valid - trigger processing
     //if invalid - trigger error output message
+   
     sessionValidator.getInstanceObject((sessionValidityObject, instanceInfo) => {
         if(sessionValidityObject.valid == true){
             cmdValidator.validate(cmd, (validityObject, cmdStructure) => {
@@ -39,12 +40,19 @@ CP.main = (cmd, context, filename, callback) => {
             });
             callback();
         }else{
-            DP.print(sessionValidityObject);
-            let questions = {};
-            questions.urlPrefix = 'URL Prefix: ';
-            questions.username = 'User Name: ';
-            questions.password = 'Password: ';
-            sessionValidator.login(questions, context, callback);
+            if(cmd.substring(0, 3) == 'now'){
+                DP.print(sessionValidityObject);
+                let questions = {};
+                questions.urlPrefix = 'URL Prefix: ';
+                questions.username = 'User Name: ';
+                questions.password = 'Password: ';
+                sessionValidator.login(questions, context, callback);
+            }
+            else{
+                callback();
+            }
+            
+         //   callback();
             /*rl.question('URL Prefix: ', (answer) => {
                 console.log('ok so you are ' + answer);
                 callback();
