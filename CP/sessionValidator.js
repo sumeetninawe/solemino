@@ -11,6 +11,7 @@
 
 const SV                = {};
 const DP                = require('./../DP/main');
+const DB                = require('./../DB/main');
 const instanceInfo      = {};
 instanceInfo.urlPrefix  = '';
 instanceInfo.username   = '';
@@ -21,14 +22,17 @@ SV.getInstanceObject = (cb) => {
     validityObject.valid = false;
     validityObject.errorMessages = [];
     validityObject.messages = [];
-    if(instanceInfo.urlPrefix == '' || instanceInfo.urlPrefix == undefined){
-        validityObject.valid = false;
-        validityObject.errorMessages.push('Please login to the instance.');
-    }else{
-        validityObject.valid = true;
-        validityObject.messages = ''
-    }
-    cb(validityObject, instanceInfo);
+
+    DB.getSessionRecord((result) => {
+        if(result.length == 0){
+            validityObject.valid = false;
+            validityObject.errorMessages.push('Please login to the instance.');
+        }else{
+            validityObject.valid = true;
+            validityObject.messages = ''
+        }
+        cb(validityObject, result[0]);      
+    });    
 }
 
 SV.login = (questions, context, cb) => {

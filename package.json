@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sumeetninawe/solemino/issues"
   },
-  "homepage": "https://github.com/sumeetninawe/solemino#readme"
+  "homepage": "https://github.com/sumeetninawe/solemino#readme",
+  "dependencies": {
+    "mongodb": "^3.4.0"
+  }
 }

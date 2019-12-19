@@ -9,6 +9,7 @@ const sessionValidator = require('./sessionValidator');
 const readline = require('readline');
 const DP = require('./../DP/main');
 const CP = {};
+let count = 0;
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -20,7 +21,7 @@ CP.main = (cmd, context, filename, callback) => {
     //Validate the command structure
     //if valid - trigger processing
     //if invalid - trigger error output message
-   
+    console.log(count++);
     sessionValidator.getInstanceObject((sessionValidityObject, instanceInfo) => {
         if(sessionValidityObject.valid == true){
             cmdValidator.validate(cmd, (validityObject, cmdStructure) => {
@@ -40,32 +41,10 @@ CP.main = (cmd, context, filename, callback) => {
             });
             callback();
         }else{
-            if(cmd.substring(0, 3) == 'now'){
-                DP.print(sessionValidityObject);
-                let questions = {};
-                questions.urlPrefix = 'URL Prefix: ';
-                questions.username = 'User Name: ';
-                questions.password = 'Password: ';
-                sessionValidator.login(questions, context, callback);
-            }
-            else{
-                callback();
-            }
-            
-         //   callback();
-            /*rl.question('URL Prefix: ', (answer) => {
-                console.log('ok so you are ' + answer);
-                callback();
-            });*/
-        }        
+            DP.print(sessionValidityObject);
+            sessionValidator.login({}, context, callback);
+        }
     });    
-    
-    
-    /*if(cmd.toString().substring(0, 3) == 'now'){
-        console.log('triggering execution');
-    }else{
-        console.log('invalid command');
-    }*/
 }
 
 module.exports = CP;
